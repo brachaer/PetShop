@@ -1,0 +1,87 @@
+﻿@using PetShop.Model.Entities
+@model Animal
+
+@{
+	ViewData["Title"] = "Details";
+}
+
+<div class="container">
+	<div class="row">
+		<div class="row mt-4">
+			<div class="col-lg-12">
+				<a asp-action="Index" asp-controller="Catalog" class="btn btn-outline-primary mr-2">Back to Catalog</a>
+				<a asp-action="Index" asp-controller="Admin" class="btn btn-outline-primary mr-2">Admin Page</a>
+			</div>
+			<div class="col-lg-6">
+				<h1>@Model.Name</h1>
+				<div class="field row">
+					<div class="col-lg-6">
+						<img src="~/Images/@Model.ImageUrl" class="img-thumbnail"  alt="Animal Image"  width="200" height="200" />
+					</div>
+				</div>
+
+			</div>
+			<div class="col-lg-6">
+				<h4>@Html.DisplayNameFor(model => model.Description)</h4>
+				<p>@Model.Description</p>
+				<fieldset class="field row">
+					<div class="col-lg-3">
+						<label asp-for="BirthDate">Birth Date:</label>
+					</div>
+					<div class="col-lg-6">
+						@if (Model.BirthDate == null)
+						{
+							<label>Unknown</label>
+						}
+						else
+						{
+							<label>@Html.DisplayFor(model => model.BirthDate)</label>
+						}
+					</div>
+				</fieldset>
+				<fieldset class="field row">
+					<div class="col-lg-3">
+						<label asp-for="Category.Name">Category:</label>
+					</div>
+					<div class="col-lg-6">
+						@ViewData["CategoryName"]
+					</div>
+				</fieldset>
+			</div>
+		</div>
+	</div>
+</div>
+<br />
+<form method="post">
+	<div class="input-group mb-3">
+
+		<div class="input-group-prepend">
+			<button class="btn btn-success" type="submit">Submit</button>
+		</div>
+		<input name="animalId" type="hidden" value="@Model.Id" />
+		<input name="userName" type="text" class="form-control" placeholder="User Name" aria-label="" aria-describedby="basic-addon1">
+		<input name="content" type="text" class="form-control" placeholder="Add your comment here and click submit" aria-label="" aria-describedby="basic-addon1">
+	</div>
+</form>
+
+<div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>User Name</th>
+				<th>Content</th>
+				<th>Comment Date</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var comment in Model.Comments)
+			{
+				<tr>
+					<td>@comment.UserName</td>
+					<td>@comment.Content</td>
+					<td>@comment.CommentDate</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>

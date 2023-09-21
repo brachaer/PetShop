@@ -1,0 +1,43 @@
+﻿@using PetShop.Model.Entities
+@model IEnumerable<Animal>
+@{
+	ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+	<h1 class="display-4">Welcome to My Pet Shop</h1>
+	<center>
+		<h6 class="h3">The two most highly rated pets today are</h6>
+		<div class="animal catalog table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Image</th>
+						<th>Name</th>
+						<th>Description</th>
+						<th>Comments</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var animal in Model)
+					{
+						<tr>
+							<td>
+								<img src="~/Images/@animal.ImageUrl" class="img-fluid"  alt="Animal Image" width="200" height="200" />
+							</td>
+							<td>
+								@Html.DisplayFor(model => animal.Name)
+							</td>
+							<td>
+								@Html.DisplayFor(model => (animal.Description))
+							</td>
+							<td>
+								@Html.DisplayFor(model => (animal.Comments.Count))
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</center>
+</div>

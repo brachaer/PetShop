@@ -1,0 +1,13 @@
+﻿@using PetShop.Model.Entities
+@model Animal
+
+@{
+    ViewData["Title"] = "Delete Animal";
+}
+
+<form asp-action="DeleteAnimal" asp-controller="Admin" asp-for="Id" method="post">
+    
+    <input type="hidden" name="confirmDelete" value="Yes" />
+    <input type="hidden" name="id" value="@Model.Id" />
+    <button type="submit" onclick="return confirm('Are you sure you want to delete @Html.Raw(Model.Name)?')">Delete</button>
+</form>

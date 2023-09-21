@@ -1,0 +1,60 @@
+﻿@using PetShop.Model.Entities
+@model Animal
+@{
+	ViewData["Title"] = "Add Page";
+}
+<div class="row ">
+	<div class="col-md">
+		<a asp-action="Index" asp-controller="Admin" class="btn btn-outline-primary mr-2">Return to Admin Page</a>
+
+		<form class="form-group text-center" asp-controller="Admin" asp-action="AddAnimal" id="addAnimal" method="post" enctype="multipart/form-data">
+			<h3>Add Animal to Pet Shop</h3>
+			<hr />
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<input type="hidden" asp-for="Comments" />
+			<div class="form-floating">
+				<input asp-for="Name" class="form-control" aria-required="true" />
+				<label asp-for="Name"></label>
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+			<br/>
+			<div class="form-floating">
+				<input asp-for="BirthDate" class="form-control" />
+				<label asp-for="BirthDate" class="form-label"></label>
+				<span asp-validation-for="BirthDate" class="text-danger"></span>
+			</div>
+			<br />
+			<div>
+				<label class="form-label" asp-for="ImageUrl" />
+				<input class="form-control" type="button" id="filetxt" value="please insert an image" style="color:blue" />
+				<input id="filein" type="file" name="imageFile" aria-required="true" hidden />
+				<span asp-validation-for="ImageUrl" class="text-danger"></span>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label" asp-for="Description"> </label>
+				<div>
+					<textarea asp-for="Description" class="form-control" rows="3" aria-required="true"></textarea>
+					<span asp-validation-for="Description" class="text-danger"></span>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label" asp-for="CategoryId">Categoty:</label>
+				<div>
+					<select class="form-control form-control-lg" asp-for="CategoryId" id="CategoryId">
+						@foreach (var item in (IEnumerable<Category>)ViewData["Category"])
+						{
+							<option value="@item.Id">@item.Name </option>
+						}
+					</select>
+				</div>
+			</div>
+			<div>
+				<button type="submit" class="btn btn-outline-primary">Save</button>
+			</div>
+		</form>
+	</div>
+	</div>
+<br />
+	@section Scripts {
+		<partial name="_ValidationScriptsPartial" />
+	}
